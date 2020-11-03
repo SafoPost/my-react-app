@@ -49,6 +49,7 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+    border-radius: 4px;
   }
 
   button, input {
