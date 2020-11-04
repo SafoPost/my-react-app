@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonPrimary } from './ButtonPrimary'
+import { ButtonPrimary } from './ButtonPrimary';
 
 const Overlay = styled.div`
   position: fixed;

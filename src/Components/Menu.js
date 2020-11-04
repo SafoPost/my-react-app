@@ -5,33 +5,31 @@ import { ListItem } from './ListItem';
 import { Banner } from './Banner';
 
 const MenuStyled = styled.main`
-  width: 100%;
+  margin-top: 80px;
+  margin-left: 380px;
 `;
 
-const Container = styled.div`
-  width: 1440px;
-  margin: auto;
-  padding: 15px;
+const SectionMenu = styled.div`
+  padding: 20px 100px 20px 70px;
 `;
+
 
 export const Menu = ({ setOpenItem }) => (
   <MenuStyled>
     <Banner />
-    <Container>
-      <section>
-        <h2>Бургеры</h2>
-        <ListItem
-          itemList={dbMenu.burger}
-          setOpenItem={setOpenItem}
-        />
-      </section>
-      <section>
-        <h2>Закуски / напитки</h2>
-        <ListItem
-          itemList={dbMenu.other}
-          setOpenItem={setOpenItem}
-        />
-      </section>
-    </Container>
+    <SectionMenu>
+      <h2>Бургеры</h2>
+      <ListItem
+        itemList={dbMenu.burger}
+        setOpenItem={setOpenItem}
+      />
+    </SectionMenu>
+    <SectionMenu>
+      <h2>Закуски / напитки</h2>
+      <ListItem
+        itemList={dbMenu.other}
+        setOpenItem={setOpenItem}
+      />
+    </SectionMenu>
   </MenuStyled>
 );
