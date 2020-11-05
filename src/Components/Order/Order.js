@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonPrimary } from './ButtonPrimary';
+import { ButtonPrimary } from '../Style/ButtonPrimary';
 import { OrderListItem } from './OrderListItem';
 
 const OrderStyled = styled.section`
@@ -18,7 +18,6 @@ const OrderStyled = styled.section`
 `;
 
 const OrderTitle = styled.h2`
-  font-family: Pacifico;
   font-size: 39px;
 
 `;
@@ -32,6 +31,13 @@ const OrderContent = styled.div`
 `;
 
 const OrderList = styled.ul`
+  width: 100%;
+  margin-top: 60px;
+  flex-grow: 1;
+`;
+
+const EmptyList = styled.p`
+  text-align: center;
   width: 100%;
   margin-top: 60px;
   flex-grow: 1;
@@ -55,15 +61,15 @@ const TotalPrice = styled.span`
   text-align: right;
 `;
 
-export const Order = () => (
+export const Order = ({ orders }) => (
   <OrderStyled>
     <OrderTitle>Ваш каказ</OrderTitle>
     <OrderContent>
-      <OrderList>
-        <OrderListItem />
-        <OrderListItem />
-        <OrderListItem />
-      </OrderList>
+      {orders.length ?
+        <OrderList>
+          {orders.map(order => <OrderListItem order={order} />)}
+        </OrderList> :
+        <EmptyList>Список заказов пуст</EmptyList>}
       <Total>
         <span>Итого:</span>
         <span>5</span>

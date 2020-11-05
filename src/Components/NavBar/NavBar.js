@@ -9,20 +9,27 @@ const NavBarStyled = styled.header`
   left: 0;
   right: 0;
   z-index: 100;
-  width: 100vw;
+  width: 100%;
   height: 80px;
   background-color: #299b01;
-`;
-
-const Container = styled.div`
-  width: 1440px;
+  padding-left: 20px;
+  padding-right: 20px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
   color: #ffffff;
 `;
+
+// const Container = styled.div`
+//   width: 1440px;
+//   margin: auto;
+//   display: flex;
+//   justify-content: space-between;
+//   align-items: center;
+//   padding: 15px;
+//   color: #ffffff;
+// `;
 
 const Logo = styled.div`
   display: flex;
@@ -57,15 +64,13 @@ const ImgSign = styled.img`
 
 export const NavBar = () => (
   <NavBarStyled>
-    <Container>
-      <Logo>
-        <ImgLogo src={logoImg} alt="logo" />
-        <H1>MrDonald's</H1>
-      </Logo>
-      <BtnSign>
-        <ImgSign src={signImg} alt="sign" />
-        Войти
-      </BtnSign>
-    </Container>
+    <Logo>
+      <ImgLogo src={logoImg} alt="logo" />
+      <H1>MrDonald's</H1>
+    </Logo>
+    <BtnSign>
+      <ImgSign src={signImg} alt="sign" />
+      Войти
+    </BtnSign>
   </NavBarStyled>
 );
