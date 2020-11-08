@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { ButtonPrimary } from '../Style/ButtonPrimary';
 import { OrderListItem } from './OrderListItem';
+import { totalPriceItems } from '../Functions/totalPriceItems';
+import { toLocaleCurrency } from '../Functions/toLocaleCurrency';
 
 const OrderStyled = styled.section`
   position: fixed;
@@ -61,21 +63,26 @@ const TotalPrice = styled.span`
   text-align: right;
 `;
 
-export const Order = ({ orders }) => (
-  <OrderStyled>
-    <OrderTitle>Ваш каказ</OrderTitle>
-    <OrderContent>
-      {orders.length ?
-        <OrderList>
-          {orders.map(order => <OrderListItem order={order} />)}
-        </OrderList> :
-        <EmptyList>Список заказов пуст</EmptyList>}
-      <Total>
-        <span>Итого:</span>
-        <span>5</span>
-        <TotalPrice>850р</TotalPrice>
-      </Total>
-      <ButtonPrimary>Оформить</ButtonPrimary>
-    </OrderContent>
-  </OrderStyled>
-);
+export const Order = ({ orders }) => {
+  const total = orders.reduce((result, order) =>
+    totalPriceItems(order) + result, 0)
+
+  return (
+    <OrderStyled>
+      <OrderTitle>Ваш каказ</OrderTitle>
+      <OrderContent>
+        {orders.length ?
+          <OrderList>
+            {orders.map(order => <OrderListItem order={order} />)}
+          </OrderList> :
+          <EmptyList>Список заказов пуст</EmptyList>}
+        <Total>
+          <span>Итого:</span>
+          <span>5</span>
+          <TotalPrice>{toLocaleCurrency(total)}</TotalPrice>
+        </Total>
+        <ButtonPrimary>Оформить</ButtonPrimary>
+      </OrderContent>
+    </OrderStyled>
+  )
+};

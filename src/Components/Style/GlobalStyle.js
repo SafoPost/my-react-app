@@ -55,9 +55,14 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   button, input {
-    font-family: inherit;
+    font: inherit;
     &:focus {
       outline: none;
     }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 `;

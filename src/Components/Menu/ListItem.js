@@ -17,13 +17,13 @@ const Item = styled.li`
   background-image: ${(props) => `url(${props.img})`};
   background-position: center;
   background-size: cover;
+  border-radius: 4px;
   margin-top: 50px;
   padding: 15px;
   color: #fff;
   z-index: 1;
   box-shadow: none;
-  transition-delay: 0.2s;
-  transition-property: box-shadow;
+  transition: 0.2s;
   &:after {
     content: '';
     position: absolute;
@@ -31,11 +31,11 @@ const Item = styled.li`
     right: 0;
     bottom: 0;
     left: 0;
+    border-radius: 4px;
     background-color: #222;
     opacity: 0.3;
     z-index: -1;
-    transition-delay: 0.2s;
-    transition-property: opacity;
+    transition: 0.2s;
   }
   &:hover {
     cursor: pointer;

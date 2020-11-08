@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import trashBin from '../image/trash-bin.svg';
+import trashBin from '../../image/trash-bin.svg';
+import { totalPriceItems } from '../Functions/totalPriceItems'
+import { toLocaleCurrency } from '../Functions/toLocaleCurrency';
 
 const OrderItemStyled = styled.li`
   margin-bottom: 15px;
@@ -31,14 +33,16 @@ const TrashButton = styled.button`
 `;
 
 
+export const OrderListItem = ({ order }) => {
 
+  const totalOrder = totalPriceItems(order);
 
-export const OrderListItem = ({ order }) => (
-  <OrderItemStyled>
-    <ItemName>{order.name}</ItemName>
-    <span>2</span>
-    <ItemPrice>{order.price.toLocaleString('ru-RU',
-      { style: 'currency', currency: 'RUB' })}</ItemPrice>
-    <TrashButton />
-  </OrderItemStyled>
-);
+  return (
+    <OrderItemStyled>
+      <ItemName>{order.name}</ItemName>
+      <span>{order.count}</span>
+      <ItemPrice>{toLocaleCurrency(totalOrder)}</ItemPrice>
+      <TrashButton />
+    </OrderItemStyled>
+  )
+};
