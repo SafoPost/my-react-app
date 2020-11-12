@@ -16,4 +16,11 @@ export const ButtonPrimary = styled.button`
   &:focus {
     box-shadow: inset 5px 5px 10px 3px rgba(0, 0, 0, 0.5);
   }
+  &:disabled {
+    background-color: #969696;
+    box-shadow: none;
+    &:hover {
+      background: #969696;
+    }
+  }
 `;

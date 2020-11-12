@@ -21,16 +21,6 @@ const NavBarStyled = styled.header`
   color: #ffffff;
 `;
 
-// const Container = styled.div`
-//   width: 1440px;
-//   margin: auto;
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 15px;
-//   color: #ffffff;
-// `;
-
 const Logo = styled.div`
   display: flex;
   align-items: center;

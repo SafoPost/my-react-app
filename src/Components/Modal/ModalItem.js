@@ -3,8 +3,12 @@ import styled from 'styled-components';
 import { ButtonPrimary } from '../Style/ButtonPrimary';
 import { CountItem } from '../Modal/CountItem';
 import { useCount } from '../Hooks/useCount';
-import { totalPriceItems } from '../Functions/totalPriceItems'
-import { toLocaleCurrency } from '../Functions/toLocaleCurrency'
+import { totalPriceItems } from '../Functions/secondaryFunctions';
+import { formatCurrency } from '../Functions/secondaryFunctions';
+import { Toppings } from './Toppings';
+import { Choices } from './Choices';
+import { useToppings } from '../Hooks/useToppings';
+import { useChoices } from '../Hooks/useChoices';
 
 const Overlay = styled.div`
   position: fixed;
@@ -55,13 +59,17 @@ const ModalText = styled.div`
 `;
 
 const TotalPriceItem = styled.div`
+  width: 100%;
   display: flex;
   justify-content: space-between;
 `;
 
 export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
 
-  const counter = useCount();
+  const counter = useCount(openItem);
+  const toppings = useToppings(openItem);
+  const choices = useChoices(openItem);
+  const isEdit = openItem.index > -1;
 
   const closeModal = e => {
     if (e.target.id === 'overlay') {
@@ -71,15 +79,21 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
 
   const order = {
     ...openItem,
-    count: counter.count
+    count: counter.count,
+    topping: toppings.toppings,
+    choice: choices.choice,
+  }
+
+  const editOrder = () => {
+    const newOrders = [...orders];
+    newOrders[openItem.index] = order;
+    setOrders(newOrders);
+    setOpenItem(null);
   }
 
   const addToOrder = () => {
     setOrders([...orders, order]);
-    setOpenItem(null);
   }
-
-  const totalOrder = totalPriceItems(order)
 
   return (
     <Overlay id="overlay" onClick={closeModal}>
@@ -88,16 +102,22 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
         <ModalContent>
           <ModalText>
             <span>{openItem.name}</span>
-            <span>{toLocaleCurrency(openItem.price)}</span>
+            <span>{formatCurrency(openItem.price)}</span>
           </ModalText>
           <CountItem {...counter} />
+          {openItem.toppings && <Toppings {...toppings} />}
+          {openItem.choices && <Choices {...choices} openItem={openItem} />}
           <TotalPriceItem>
             <span>Цена: </span>
-            <span>{toLocaleCurrency(totalOrder)}</span>
+            <span>{formatCurrency(totalPriceItems(order))}</span>
           </TotalPriceItem>
-          <ButtonPrimary onClick={addToOrder}>Добавить</ButtonPrimary>
+          <ButtonPrimary
+            onClick={isEdit ? editOrder : addToOrder}
+            disabled={order.choices && !order.choice}>
+            Добавить
+          </ButtonPrimary>
         </ModalContent>
       </Modal>
-    </Overlay>
+    </Overlay >
   )
 };
