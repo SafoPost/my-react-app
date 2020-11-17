@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import trashBin from '../../image/trash-bin.svg';
 import { totalPriceItems } from '../Functions/secondaryFunctions'
@@ -50,15 +50,14 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
     .map(item => item.name)
     .join(', ');
 
+  const refDeleteBtn = useRef(null);
+
   return (
-    <OrderItemStyled onClick={(e) => {
-      if (e.target.classList.contains('trash-button')) return;
-      setOpenItem({ ...order, index });
-    }}>
+    <OrderItemStyled onClick={(e) => e.target !== refDeleteBtn.current && setOpenItem({ ...order, index })}>
       <ItemName>{order.name} {order.choice}</ItemName>
       <span>{order.count}</span>
       <ItemPrice>{formatCurrency(totalPriceItems(order))}</ItemPrice>
-      <TrashButton className="trash-button" onClick={() => deleteItem(index)} />
+      <TrashButton ref={refDeleteBtn} onClick={() => deleteItem(index)} />
       {topping ? <ToppingsList>+ {topping}</ToppingsList> : null}
     </OrderItemStyled>
   )

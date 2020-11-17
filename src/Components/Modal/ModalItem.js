@@ -84,7 +84,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
     choice: choices.choice,
   }
 
-  const editOrder = () => {
+  const editOrder = (e) => {
     const newOrders = [...orders];
     newOrders[openItem.index] = order;
     setOrders(newOrders);
@@ -93,6 +93,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
 
   const addToOrder = () => {
     setOrders([...orders, order]);
+    setOpenItem(null);
   }
 
   return (
@@ -114,7 +115,7 @@ export const ModalItem = ({ openItem, setOpenItem, orders, setOrders }) => {
           <ButtonPrimary
             onClick={isEdit ? editOrder : addToOrder}
             disabled={order.choices && !order.choice}>
-            Добавить
+            {isEdit ? 'Редактировать' : 'Добавить'}
           </ButtonPrimary>
         </ModalContent>
       </Modal>
